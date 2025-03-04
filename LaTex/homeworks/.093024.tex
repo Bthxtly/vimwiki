@@ -1,0 +1,82 @@
+\documentclass[12pt,letterpaper, onecolumn]{exam}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[lmargin=71pt, tmargin=1.2in]{geometry}  %For centering solution box
+\chead{CS 2403 202411073\\} % Un-comment to draw line below header
+\thispagestyle{empty}   %For removing header/footer from page 1
+
+\begin{document}
+
+% Set the title
+\begingroup  
+    \centering
+    \LARGE Homework of Further Mathematics\\
+    \large \today\\[0.5em]
+    \large Ji Jinnuo\par
+    \large 202411073\par
+    \large CS/2403\par
+\endgroup
+
+\rule{\textwidth}{0.4pt}
+\pointsdroppedatright   %Self-explanatory
+\printanswers
+\renewcommand{\solutiontitle}{\noindent\textbf{Ans:}\enspace}   %Replace "Ans:" with starting keyword in solution box
+
+\begin{questions}
+
+    \question[I can't delete this otherwise it comes error] {What are domains of following functions?}\droppoints
+
+    $(1) y = \sin{\sqrt{x}}$
+
+    $(2) y = \arcsin{(x-3)}$
+
+    $(3) y = \sqrt{3-x} + \arctan{\frac1x}$
+    \begin{solution}
+
+        $(1) x \subset \left[0, +\infty\right)$
+
+        $(2) x \subset \left[2, 4\right]$
+
+        $(3) x \subset \left(-\infty, 3\right] \backslash \left\{0\right\}$
+    \end{solution}
+    
+    \question[2 Marks] {Let
+
+        \begin{equation*}
+            f(x) = \left\{ \begin{array}{rcl}
+                    1 & \mbox{for} & |x| < 1 \\
+                    0 & \mbox{for} & |x| = 1 \\
+                    -1 & \mbox{for} & |x| > 1
+                    \end{array}\right.,
+            g(x) = e^x,
+        \end{equation*}
+
+    and answer following questions:}
+    \begin{parts}
+        \part What are $f[g(x)]$ and $g[f(x)]$?
+        \part Draw graphics of them.
+    \end{parts}
+    
+    \begin{solution}
+        \begin{parts}
+            \part
+
+                $f[g(x)] = \left\{ \begin{array}{rcl}
+                    1 & \mbox{for} & x < 0 \\
+                    0 & \mbox{for} & x = 0 \\
+                    -1 & \mbox{for} & x > 0
+                \end{array}\right. $,
+
+                $g[f(x)] = \left\{ \begin{array}{rcl}
+                    e & \mbox{for} & -1 < x < 1 \\
+                    1 & \mbox{for} & x = \pm 1 \\
+                    e^{-1} & \mbox{for} & x < -1 \mbox{ or } x > 1
+                \end{array}\right. $
+
+            \part I have not learnt to draw with LaTex yet, so I draw them by hands.
+        \end{parts}
+    \end{solution}
+
+\end{questions}
+\end{document}
+\grid
