@@ -8,6 +8,7 @@
         * [[kilo_editor]]
         * [[latex]]
         * [[git]]
+        * [[osdev]]
 
 ### Archived
     * [diary_24](archived/diary_24.md)
