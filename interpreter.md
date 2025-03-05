@@ -1,6 +1,4 @@
-<!---
-vim:spell:nowrap:textwidth=79:colorcolumn=80
---->
+<!-- vim:spell:nowrap:textwidth=79:colorcolumn=80: -->
 # Let's Build A Simple Interpreter
 
 > ___"If you don’t know how compilers work, then you don’t know how computers
@@ -338,12 +336,14 @@ second class so that we can visit the AST before actually interpreting it.
 [Here](~/Documents/VimWiki/files/p13_semantic_analyzer.py) is the full file.
 
 
-### procedure declaration
+### procedure
 A ___procedure declaration___ is a construct that defines an identifier and
 associates it with a block of Pascal code. By the way, the Pascal procedures
 don't have return statements and can be nested within each other.
 
-#### without parameters
+#### declaration
+
+##### without parameters
 Here is an example of procedure without parameters:
 ```pascal
 PROGRAM Part12;
@@ -378,7 +378,7 @@ declarations         : VAR (variable_declaration SEMI)+    (* variable *)
                      | empty
 ```
 
-#### with parameters
+##### with parameters
 Here is an example of procedure with parameters:
 ```pascal
 program Main;
@@ -404,6 +404,11 @@ formal_parameter_list : formal_parameters
                       | formal_parameters SEMI formal_parameters
 formal_parameters     : ID (COMMA ID)* COLON type_spec
 ```
+
+#### call
+To make our interpreter actually deal with a procedure call, we should make
+parser construct the AST and make semantic analyzer and interpreter don't throw
+any errors when walking the AST.
 
 ### scope
 A ___scope___ is a textual region of a program where a name can be used. Pascal
@@ -512,7 +517,7 @@ It helps us understand how name resolution works and is helpful when learning
 about symbols, nested scopes, and name resolution.
 
 And it can be implemented easily by extending the semantic analyzer.
-<!--- TODO: implement a source-to-source compiler --->
+<!-- TODO: implement a source-to-source compiler -->
 
 ### more features
 To provide better error message pinpointing where in the code an issue happened,
@@ -523,8 +528,31 @@ Instead of stack traces with very generic messages like `Invalid syntax`, we
 would like to see something more useful like
 `SyntaxError: Unexpected token -> Token(TokenType.SEMI, ‘;’, position=23:13)`.
 
-To implement this, we define a `Error` base class, which takes three arguments:
-*error_code* , *token* and *message*.
+To implement this, we define a `Error` base class (NOTE: the definition of this
+class in part 15 is outdated, use `super().__init__(message)` instead of
+`self.message = message`), which takes three arguments: *error_code* , *token* and
+*message*, and custom some exceptions: `LexerError`, `ParserError`, and
+`SemanticError`. Then we update the `error` methods respectively.
+
+##### Lexer
+We add new members `lineno` and `column` to locate tokens, with modified
+`advance` to update them.
+
+> Also, to make codes cleaner, we defines token types in the `TokenType`
+> enumeration class, and automatically create reserved keywords from it. Then
+> we can refactor `get_next_token` method to make it shorter and have a generic
+> code that handles single-character tokens.
+
+##### Parser
+We update the `eat` method to call the modified `error` method, and refactor
+the `declarations` method and move `procedure_declaration` into a separate
+method.
+
+##### Semantic Analyzer
+We update `visit_VarDecl` and `visit_Var` methods to signal errors by calling
+the `error` method, add a `log` method to both the `ScopedSymbolTable` and
+`SemanticAnalyzer`, with a command line option `--scope` to turn scope logging
+on and off. Also, we add empty `visit_Num` and `visit_UniNode` methods.
 
 #### toggle scope output
 Add a "--scope" command to turn scope output on/off.

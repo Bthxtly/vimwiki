@@ -46,4 +46,3 @@ reverses current commit. This is usually used for remote branches.
 ## Moving Work Around
 Above concepts are enough to leverage 90% of the power of git repositories and
 cover the main needs of developers. So I will learn the rest when in need.
-
