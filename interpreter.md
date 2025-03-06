@@ -1,4 +1,6 @@
-<!-- vim:spell:nowrap:textwidth=79:colorcolumn=80: -->
+<!--
+vim:spell:nowrap:textwidth=79:colorcolumn=80
+-->
 # Let's Build A Simple Interpreter
 
 > ___"If you don’t know how compilers work, then you don’t know how computers
@@ -409,6 +411,9 @@ formal_parameters     : ID (COMMA ID)* COLON type_spec
 To make our interpreter actually deal with a procedure call, we should make
 parser construct the AST and make semantic analyzer and interpreter don't throw
 any errors when walking the AST.
+
+That's easy, just add an `ProcedureCall` AST node, update statements rule, and
+add an empty `visit_ProcedureCall` method in `Interpreter` class.
 
 ### scope
 A ___scope___ is a textual region of a program where a name can be used. Pascal
