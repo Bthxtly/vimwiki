@@ -415,6 +415,20 @@ any errors when walking the AST.
 That's easy, just add an `ProcedureCall` AST node, update statements rule, and
 add an empty `visit_ProcedureCall` method in `Interpreter` class.
 
+### memory system
+A memory system is a system for storing and accessing data in memory. We used
+Python dictionary as the memory system before. However, it's not suitable for
+procedure calls, and many other things.
+
+The new memory system is a stack data structure that holds dictionary-like
+objects as elements. The stack is called the ***call stack***, and elements are
+called ***activation records***, or just __frames__. In fact, every scope symbol
+table below is a single activation record.
+
+> [!NOTE]
+> The `scope` section below is outdated though still worth reading. They were
+introduced in part 15, and the memory system is introduced in part 17.
+
 ### scope
 A ___scope___ is a textual region of a program where a name can be used. Pascal
 programs are said to be ___lexically scoped___(or ___statically scoped___)
