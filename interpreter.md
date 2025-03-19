@@ -8,7 +8,7 @@ vim:spell:nowrap:textwidth=79:colorcolumn=80
 > don’t know how they work."___ — *Steve Yegge*
 
 ## About
-First learn [this](https://ruslanspivak.com/lsbasi-part1/) during the senior
+First learnt [this](https://ruslanspivak.com/lsbasi-part1/) during the senior
 high time. Interpreters and compilers are fun, but somewhat hard, so here the
 note is.
 
@@ -106,7 +106,6 @@ factor : (PLUS | MINUS) factor | INTEGER | LPAREN expr RPAREN
 [Here](~/Documents/VimWiki/files/calc.py) is a working calculator. It supports
 addition, subtraction, multiplication and division between integers and floats, 
 parentheses are supported as well.
-
 
 ## Let's build a Pascal interpreter
 
@@ -337,7 +336,6 @@ second class so that we can visit the AST before actually interpreting it.
 
 [Here](~/Documents/VimWiki/files/p13_semantic_analyzer.py) is the full file.
 
-
 ### procedure
 A ___procedure declaration___ is a construct that defines an identifier and
 associates it with a block of Pascal code. By the way, the Pascal procedures
@@ -412,7 +410,7 @@ To make our interpreter actually deal with a procedure call, we should make
 parser construct the AST and make semantic analyzer and interpreter don't throw
 any errors when walking the AST.
 
-That's easy, just add an `ProcedureCall` AST node, update statements rule, and
+That's easy, just add an `ProcedureCall` AST node, update "statements" rule, and
 add an empty `visit_ProcedureCall` method in `Interpreter` class.
 
 ### memory system
@@ -429,11 +427,11 @@ table below is a single activation record.
 > The `scope` section below is outdated though still worth reading. They were
 introduced in part 15, and the memory system is introduced in part 17.
 
-### scope
+#### scope
 A ___scope___ is a textual region of a program where a name can be used. Pascal
 programs are said to be ___lexically scoped___(or ___statically scoped___)
 since lexical keywords like *program* and *end* demarcate the textual
-boundaries of a scope. 
+boundaries of a scope.
 With scopes, we can use isolated name space, re-use the same name in different
 scopes and re-declare a variable with the same name in a nested scope.
 
@@ -441,7 +439,7 @@ To implement the concept of a scope in code, we'll use a ___scoped symbol
 table___, which is basically a symbol table with a few modifications, that is,
 adding scope names and levels.
 
-#### nested scope
+##### nested scope
 In this program, we have nested scope:
 ```pascal
 PROGRAM Main;                       { x_1  y_1  Alpha_1         }
@@ -467,14 +465,14 @@ time we enter a new nested scope. Also, we assign the newly created scope to
 the instance variable *current_scope* and other visitor methods that insert or
 look up symbols will use it.
 
-#### scope tree
+##### scope tree
 To represent the nested relationship between the *global scope* and *Alpha
 scope*, we can chain the tables together. In code, we add a variable
 *enclosing_scope* that will hold a pointer to the scope's enclosing scope, and
 update the *visit_Program* and *visit_ProcedureDecl* methods to create an
 actual link to the scope's enclosing scope.
 
-#### name resolution
+##### name resolution
 *Lexically (statically) scoped* languages like Pascal follow ___the most
 closely nested scope___ rule when it comes to name resolution. It means that,
 in every scope, a name refers to its lexically closet declaration.
@@ -487,6 +485,8 @@ However, it leads to the "Duplicate declarations" when declaring a variable in
 child-scope that has same name as in father-scope. This is easy to fix by
 sending a `current_scope_only` parameter to tell `lookup` function whether
 search up recursively or not.
+
+#### call stack
 
 ### source-to-source compiler
 A ___source-to-source compiler___ is compiler that translates a program in some
