@@ -31,4 +31,4 @@ $
   &= 1 / (x dot ln a)
 $
 
-So $ (log_a x) = 1 / (x dot ln a) $
+So $ (log_a x)' = 1 / (x dot ln a) $
