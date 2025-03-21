@@ -1,6 +1,5 @@
 #import "@preview/cetz:0.3.4"
 
-
 #grid(
   gutter: 10pt,
   // trigonometric functions
